@@ -5,6 +5,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { validate } from './config/env.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './components/users/users.module';
+import { User } from './components/users/entities/user.entity';
+import { AuthModule } from './components/auth/auth.module';
 
 @Module({
   imports: [
@@ -23,6 +26,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           username: configService.get('database').username,
           password: configService.get('database').password,
           database: configService.get('database').database,
+          entities: [User],
           synchronize: true,
           extra: {
             trustServerCertificate: true,
@@ -31,6 +35,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       },
       inject: [ConfigService],
     }),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

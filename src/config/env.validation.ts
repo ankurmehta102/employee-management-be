@@ -15,6 +15,11 @@ class EnvironmentVariables {
   DB_PASSWORD: string;
   @IsString()
   DB_DATABASE: string;
+
+  @IsString()
+  JWT_ACCESS_EXP_TIME: string;
+  @IsString()
+  JWT_SECRET: string;
 }
 
 export function validate(config: Record<string, unknown>) {
